@@ -24,6 +24,31 @@ async function findByRoomId(roomId: number) {
   });
 }
 
+async function findBookingWithHotel(userId: number) {
+  const booking = await prisma.booking.findFirst({
+    where: {
+      userId,
+    },
+    include: {
+      Room: {
+        include: {
+          Hotel: true
+        }
+      },
+    }
+  });
+
+  const { _count } = await prisma.booking.aggregate({
+    where: {
+      userId,
+    },
+    _count: true
+  });
+
+  const result = { booking, _count };
+  return result;
+}
+
 async function findByUserId(userId: number) {
   return prisma.booking.findFirst({
     where: {
@@ -55,6 +80,7 @@ const bookingRepository = {
   findByRoomId,
   findByUserId,
   upsertBooking,
+  findBookingWithHotel,
 };
 
 export default bookingRepository;
