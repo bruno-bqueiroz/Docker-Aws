@@ -16,6 +16,18 @@ export async function listBooking(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function listBookingWithHotel(req: AuthenticatedRequest, res: Response) {
+  try {
+    const { userId } = req;
+    const booking = await bookingService.getBookingWithHotel(userId);
+    return res.status(httpStatus.OK).send(
+      booking
+    );
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
 export async function bookingRoom(req: AuthenticatedRequest, res: Response) {
   try {
     const { userId } = req;
