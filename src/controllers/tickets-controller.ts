@@ -29,7 +29,7 @@ export async function createTicket(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
 
   //TODO validação do JOI
-  const { ticketTypeId } = req.body;
+  const ticketTypeId = req.body.id;
 
   if (!ticketTypeId) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
