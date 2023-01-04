@@ -11,7 +11,7 @@ export async function postTicketType(req: AuthenticatedRequest, res: Response) {
     includesHotel, 
     price,
   } = req.body as ticketTypeParams;
-  console.log(req.body);
+
   try {
     const ticketTypes = await ticketTypeService.createTicketType(userId, { isRemote, includesHotel, price });
     return res.status(httpStatus.CREATED).send(ticketTypes);
@@ -19,4 +19,3 @@ export async function postTicketType(req: AuthenticatedRequest, res: Response) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
-
