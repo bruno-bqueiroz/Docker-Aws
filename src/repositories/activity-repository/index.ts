@@ -1,7 +1,9 @@
 import { prisma } from "@/config";
 
-async function findActivities() {
-  return prisma.activity.findMany();
+async function findActivities(day: string) {
+  return prisma.activity.findMany({
+    where: { day: day } 
+  });
 }
 
 const activityRepository = {

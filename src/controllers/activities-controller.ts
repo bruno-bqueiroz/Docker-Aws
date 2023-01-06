@@ -4,8 +4,10 @@ import httpStatus from "http-status";
 import activitiesService from "@/services/activities-service";
 
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
+  const { day } = req.body;
+  console.log(day);
   try {
-    const activities = await activitiesService.getActivities();
+    const activities = await activitiesService.getActivities(day);
 
     return res.status(httpStatus.OK).send(activities);
   } catch (error) {
