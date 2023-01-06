@@ -150,6 +150,8 @@ model Activity {
   Registration  Registration[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @default(now())
+  day           String
+  @@index([day])
 }
 
 model Registration {
