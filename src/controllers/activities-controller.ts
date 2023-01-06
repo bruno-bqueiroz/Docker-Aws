@@ -4,8 +4,10 @@ import httpStatus from "http-status";
 import activitiesService from "@/services/activities-service";
 
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
-  const { day } = req.body;
-  console.log(day);
+  const day = "2023-10-22";
+
+  if(!day) return res.sendStatus(httpStatus.BAD_REQUEST);
+
   try {
     const activities = await activitiesService.getActivities(day);
 
