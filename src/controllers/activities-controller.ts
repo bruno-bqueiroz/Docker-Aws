@@ -4,8 +4,8 @@ import httpStatus from "http-status";
 import activitiesService from "@/services/activities-service";
 
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
-  const { day } = req.body;
-
+  const { day } = req.query;
+  
   if(!day) return res.sendStatus(httpStatus.BAD_REQUEST);
 
   try {

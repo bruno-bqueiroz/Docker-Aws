@@ -1,7 +1,7 @@
 import { notFoundError } from "@/errors";
 import activityRepository from "@/repositories/activity-repository";
 
-async function getActivities(day: string) {
+async function getActivities(day: any) {
   try {
     const activities = await activityRepository.findActivities(day);
     return activities;
