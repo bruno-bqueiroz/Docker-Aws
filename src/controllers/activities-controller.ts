@@ -16,3 +16,16 @@ export async function getActivities(req: AuthenticatedRequest, res: Response) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
+
+export async function postRegistration(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { activitiesIds } = req.body;
+
+  try {
+    const activities = await activitiesService.postRegistration(userId, activitiesIds);
+
+    return res.status(httpStatus.OK).send(activities);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}

@@ -1,4 +1,5 @@
 import { prisma } from "@/config";
+import { Registration } from "@prisma/client";
 
 async function findActivities(day: string) {
   return prisma.activity.findMany({
@@ -10,8 +11,19 @@ async function findActivities(day: string) {
   });
 }
 
+async function postRegistration(activitiesIds: Array<number>, userId: number) {
+  return prisma.registration.createMany({
+    data: activitiesIds.map((id) => {
+      return { activityId: id, userId: userId } as unknown as CreateRegistrationParams;
+    }),
+  });
+}
+
+type CreateRegistrationParams = Omit<Registration, "id" | "createdAt" | "updatedAt">;
+
 const activityRepository = {
-  findActivities
+  findActivities,
+  postRegistration,
 };
 
 export default activityRepository;

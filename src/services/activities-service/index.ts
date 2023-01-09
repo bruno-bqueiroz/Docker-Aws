@@ -10,8 +10,18 @@ async function getActivities(day: any) {
   }
 }
 
+async function postRegistration(userId: number, activitiesIds: Array<number>) {
+  try {
+    const activities = await activityRepository.postRegistration(activitiesIds, userId);
+    return activities;
+  } catch (err) {
+    throw notFoundError();
+  }
+}
+
 const activitiesService = {
-  getActivities
+  getActivities,
+  postRegistration,
 };
 
 export default activitiesService;
