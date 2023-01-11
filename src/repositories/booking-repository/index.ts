@@ -32,21 +32,14 @@ async function findBookingWithHotel(userId: number) {
     include: {
       Room: {
         include: {
+          _count: true,
           Hotel: true
         }
       },
     }
   });
 
-  const { _count } = await prisma.booking.aggregate({
-    where: {
-      userId,
-    },
-    _count: true
-  });
-
-  const result = { booking, _count };
-  return result;
+  return booking;
 }
 
 async function findByUserId(userId: number) {
