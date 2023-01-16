@@ -1,14 +1,34 @@
 import { prisma } from "@/config";
 import { Registration } from "@prisma/client";
+import { createClient } from "redis";
 
 async function findActivities(day: string) {
-  return prisma.activity.findMany({
-    where: { day: day },
-    include: {
-      Registration: true,
-      _count: true
-    },
-  });
+  try {
+    const redisClient = createClient();
+    await redisClient.connect();
+    const activity = await redisClient.get(day);
+
+    if(activity === null) {
+      console.log("não achou no Redis");
+
+      const newActivity = await prisma.activity.findMany({
+        where: { day: day },
+        include: {
+          Registration: true,
+          _count: true
+        },
+      });
+      console.log("inserindo no Redis");
+      const superNewActive = JSON.stringify(newActivity);
+      await redisClient.set(day, superNewActive);
+      return newActivity;
+    }
+
+    console.log("achou no Redis");
+    return activity;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function postRegistration(activitiesIds: Array<number>, userId: number) {
