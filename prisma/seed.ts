@@ -7,7 +7,7 @@ async function main() {
   if (!event) {
     event = await prisma.event.create({
       data: {
-        title: "Driven.t",
+        title: "Driven.ts",
         logoImageUrl: "https://files.driveneducation.com.br/images/logo-rounded.png",
         backgroundImageUrl: "linear-gradient(to right, #FA4098, #FFD77F)",
         startsAt: dayjs().toDate(),

@@ -1,0 +1,2 @@
+ INSERT INTO "Event" ("title", "backgroundImageUrl", "logoImageUrl", "startsAt", "endsAt", "createdAt", "updatedAt")   VALUES ('Driven.ts', 'linear-gradient(to right, #FA4098, #FFD77F)', 'https://files.driveneducation.com.br/images/logo-rounded.png','2023-02-05T18:42:06.016Z', '2023-02-26T18:42:06.018Z','2023-01-05T18:42:06.024Z', '2023-01-05T18:42:06.025Z');
+ 

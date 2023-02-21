@@ -4,7 +4,9 @@ import { createClient } from "redis";
 
 async function findActivities(day: string) {
   try {
-    const redisClient = createClient();
+    const redisClient = createClient({
+      url: "redis://redis:6379"
+    });
     await redisClient.connect();
     const activity = await redisClient.get(day);
 
